@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Study Space</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4e7da;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .timer {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .jukebox {
+            margin-top: 20px;
+        }
+        button {
+            background: #ffafcc;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐱 Cozy Study Space 🏡</h1>
+        
+        <h2>⏳ Study Timer</h2>
+        <div class="timer" id="timer">25:00</div>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="resetTimer()">Reset</button>
+        
+        <h2>🎵 Jukebox</h2>
+        <div class="jukebox">
+            <button onclick="playMusic()">Play</button>
+            <button onclick="pauseMusic()">Pause</button>
+        </div>
+        <audio id="music" src="https://www.bensound.com/bensound-music/bensound-buddy.mp3"></audio>
+    </div>
+    
+    <script>
+        let timeLeft = 1500;
+        let timer;
+        function startTimer() {
+            if (!timer) {
+                timer = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        document.getElementById('timer').innerText = `${Math.floor(timeLeft / 60)}:${(timeLeft % 60).toString().padStart(2, '0')}`;
+                    } else {
+                        clearInterval(timer);
+                        timer = null;
+                    }
+                }, 1000);
+            }
+        }
+        function resetTimer() {
+            clearInterval(timer);
+            timer = null;
+            timeLeft = 1500;
+            document.getElementById('timer').innerText = "25:00";
+        }
+        function playMusic() {
+            document.getElementById('music').play();
+        }
+        function pauseMusic() {
+            document.getElementById('music').pause();
+        }
+    </script>
+</body>
+</html>
